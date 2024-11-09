@@ -21,8 +21,20 @@ docker ps -a
 - 从镜像启动容器  
 docker run ubuntu:20.04 /bin/echo "Hello World"  
 docker run -d ubuntu:20.04 /bin/sh -c "while true; do echo hello world; sleep 1; done" // 后台运行  
-docker run -i -t ubuntu:20.04 /bin/bash // 交互式登陆，-t 新建一个终端，-i 允许标准输入；  
-
+docker run -i -t ubuntu:20.04 /bin/bash // 交互式登陆，-t 新建一个终端，-i 允许标准输入； 
+```
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]  
+-d: 后台运行容器并返回容器 ID。  
+-it: 交互式运行容器，分配一个伪终端。  
+--name: 给容器指定一个名称。  
+-p: 端口映射，格式为 host_port:container_port。  
+-v: 挂载卷，格式为 host_dir:container_dir。  
+--rm: 容器停止后自动删除容器。  
+--env 或 -e: 设置环境变量。  
+--network: 指定容器的网络模式。  
+--restart: 容器的重启策略（如 no、on-failure、always、unless-stopped）。  
+-u: 指定用户。
+```  
 - 启动容器  
 sudo docker start CONTAINER_ID  
 
@@ -47,12 +59,13 @@ cat docker/ubuntu.tar | sudo docker import - test/ubuntu:v1
 
 - 导出容器为新的镜像  
 docker commit -m "has update" -a "lc" 30bd86fa9c1b image:v3   
+```
 docker commit [OPTIONS] CONTAINER_ID [REPOSITORY[:TAG]]  
 [REPOSITORY[:TAG]]：可选，指定新镜像的仓库名称和标签（如果未指定，Docker 会自动生成一个镜像 ID）。  
 -a 或 --author：指定镜像的作者信息。  
 -m 或 --message：为镜像添加提交信息，描述该次更改内容。  
 -p 或 --pause：在提交过程中暂停容器（默认开启）。如果你不想暂停容器，可以将该选项设置为 false。  
-
+```
 - 查看容器LOG  
 docker logs CONTAINER_ID 
 
@@ -60,10 +73,11 @@ docker logs CONTAINER_ID
 docker container prune  
 
 - 拷贝文件  
+```
 docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH  
 docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH  
 -L: 如果源路径中包含符号链接，使用此参数会使 docker cp 跟随符号链接复制实际文件，而不是复制符号链接本身。  
-
+```
 - Dockfile创建镜像  
 docker build -t IMAGE:TAG ./   
 -t ：指定要创建的目标镜像名  
@@ -88,3 +102,4 @@ ADD- 添加文件，如果是压缩文件也解压
 COPY- 添加文件，以复制的形式  
 ENTRYPOINT- 容器进入时执行的命令
 ```
+- docker pull 与 docker push
