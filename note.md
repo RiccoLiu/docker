@@ -1,4 +1,25 @@
-# Docker 基础命令
+## Docker配置
+
+- 设置镜像加速, 设置私有仓库地址  
+/etc/docker/daemon.json改成这个内容  
+sudo systemctl daemon-reload  
+sudo systemctl restart docker  
+```
+{
+    "registry-mirrors": [
+        "https://do.nark.eu.org",
+        "https://dc.j8.work",
+        "https://docker.m.daocloud.io",
+        "https://dockerproxy.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://docker.nju.edu.cn",
+        "https://zbi3ynx1.mirror.aliyuncs.com"
+    ],                                                                                                                                                                                                                                                                     
+    "insecure-registries":["192.168.70.202:32373", "192.168.70.201:32373", "192.168.68.102"]
+}
+```
+
+## Docker 基础命令
 
 - 查看镜像   
 docker images
@@ -79,9 +100,16 @@ docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH
 -L: 如果源路径中包含符号链接，使用此参数会使 docker cp 跟随符号链接复制实际文件，而不是复制符号链接本身。  
 ```
 - Dockfile创建镜像  
-docker build -t IMAGE:TAG ./   
--t ：指定要创建的目标镜像名  
-./: Dockerfile 文件所在目录  
+docker build -t IMAGE:TAG ./  
+docker build --no-cache --build-arg REGISTRY=192.168.70.202:32373/registry -t 192.168.70.202:32373/registry/mgs/cloud/slamoncloud:mgs_deploy_lc -f ./docker/Dockerfile .  
+```
+-t, --tag: 用于为镜像命名并打标签，格式为 name:tag
+-f, --file: 指定 Dockerfile 文件的路径，如果不在当前目录，指定相对或绝对路径
+--no-cache: 禁用缓存，从头开始构建镜像，不使用之前的构建层
+--build-arg: 构建时传入的变量，可用于 Dockerfile 内部的 ARG 指令
+--output: 指定构建输出位置，例如将镜像导出到本地文件而不是加载到 Docker
+    docker build --output type=local,dest=./out .
+./ : 构建上下文所在的路径
 ```
 FROM    定制镜像的Base  
 RUN     执行命令分为 shell 格式和 exec 格式  
@@ -103,3 +131,5 @@ COPY- 添加文件，以复制的形式
 ENTRYPOINT- 容器进入时执行的命令
 ```
 - docker pull 与 docker push
+docker pull uhub.service.ucloud.cn/backup_images/ubuntu:20.04  
+docker push 192.168.70.202:32373/registry/mgs/cloud/slamoncloud:mgs_base_lc  

@@ -15,8 +15,8 @@ RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/source
     apt-get install -y --no-install-recommends vim git zip unzip tar xz-utils \
     cmake make git openjdk-11-jdk ssh clang-format-12 gcc g++ gdb \
     curl wget ncftp net-tools build-essential doxygen autoconf libtool linux-tools-common linux-tools-generic \
-    x11-apps tree python python3 python3-pip iputils-ping libglew-dev libgtk-3-dev \
-    automake tk less language-pack-zh-hans libeigen3-dev libceres-dev libpcl-dev \
+    x11-apps tree python python3 python3-pip iputils-ping libglew-dev libgtk-3-dev libsuitesparse-dev \
+    automake tk less language-pack-zh-hans libeigen3-dev libceres-dev libpcl-dev  libyaml-cpp-dev protobuf-compiler \
     x11-common x11-session-utils x11-utils x11-xfs-utils x11-xkb-utils x11-xserver-utils fonts-wqy-zenhei && \
     apt-get install -y gnupg && \
     apt-get install -y libopencv-dev &&\

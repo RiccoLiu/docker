@@ -1,7 +1,9 @@
 # Docker
 ## 制作基础镜像
 cd Dockerfile
-docker build -t ubuntu20.04:base ./  
+docker build --no-cache -t ubuntu20.04:base ./  -f ./Dockerfile-base .
+
+## 制作发布镜像
 
 ## 制作容器
 根据code应用程序安装各种库，保证code编译运行成功，安装过程遇到的问题参看INSTALL.md
