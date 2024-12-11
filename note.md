@@ -34,15 +34,15 @@ docker tag IMAGE_ID IMAGE_NAME:TAG
 docker save -o ubuntu_20.04_vim.tar IMAGE_ID  
 
 - 加载镜像  
-docker load < ubuntu_20.04_vim.tar
+docker load --input ubuntu_20.04_vim.tar
 
 - 查看所有容器  
 docker ps -a  
 
 - 从镜像启动容器  
-docker run ubuntu:20.04 /bin/echo "Hello World"  
-docker run -d ubuntu:20.04 /bin/sh -c "while true; do echo hello world; sleep 1; done" // 后台运行  
 docker run -i -t ubuntu:20.04 /bin/bash // 交互式登陆，-t 新建一个终端，-i 允许标准输入； 
+docker run -v /home/lc/work/slam_oncloud:/home -it 192.168.70.202:32373/registry/mgs/cloud/slamoncloud:mgs_base_lc /bin/bash
+
 ```
 docker run [OPTIONS] IMAGE [COMMAND] [ARG...]  
 -d: 后台运行容器并返回容器 ID。  
@@ -76,7 +76,10 @@ docker rm CONTAINER_ID
 sudo docker export CONTAINER_ID > hello_world.tar  
 
 - 导入容器  
-cat docker/ubuntu.tar | sudo docker import - test/ubuntu:v1  
+sudo docker import hello_world.tar my_new_image:latest
+
+- 容器重命名
+sudo docker rename old-container new-container 
 
 - 导出容器为新的镜像  
 docker commit -m "has update" -a "lc" 30bd86fa9c1b image:v3   
