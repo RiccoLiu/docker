@@ -128,6 +128,8 @@
     http://www.autolabor.com.cn/book/ROSTutorials/chapter1/12-roskai-fa-gong-ju-an-zhuang/124-an-zhuang-ros.html
 
 ### Protobuf
+    curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.19.6/protobuf-all-3.19.6.tar.gz
+
     ./configure --prefix=/usr
     make
     make install
@@ -150,6 +152,7 @@
 --- 
 ### docker 启动
     主机安装Xming将Xserver启动后，再将容器内显示连接到主机的Xserver上, docker 启动命令参考如下：
-    docker run -it -e DISPLAY=172.21.176.10:0.0 4fb2e785ea82 /bin/bash
+    sudo docker run -v /mnt/d/work:/workspace -it ubuntu_20.04:base -e DISPLAY=172.21.176.10:0.0 /bin/bash  
 
-
+### apt 安装
+    libyaml-cpp-dev
